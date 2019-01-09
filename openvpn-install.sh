@@ -201,7 +201,8 @@ else
 	echo "   4) OpenDNS"
 	echo "   5) Verisign"
 	echo "   6) Alternate DNS"
-	read -p "DNS [1-6]: " -e -i 1 DNS
+	echo "   7) Playmo"
+	read -p "DNS [1-7]: " -e -i 1 DNS
 	echo
 	echo "Finally, tell me your name for the client certificate."
 	echo "Please, use one word only, no special characters."
@@ -288,6 +289,8 @@ ifconfig-pool-persist ipp.txt" > /etc/openvpn/server.conf
 		6)
 		echo 'push "dhcp-option DNS 23.253.163.53"' >> /etc/openvpn/server.conf
 		echo 'push "dhcp-option DNS 198.101.242.72"' >> /etc/openvpn/server.conf
+		7)
+		echo 'push "dhcp-option DNS 46.101.152.170"' >> /etc/openvpn/server.conf
 		;;
 	esac
 	echo "keepalive 10 120
