@@ -171,7 +171,7 @@ else
 	# Autodetect IP address and pre-fill for the user
 	IP=$(ip addr | grep 'inet' | grep -v inet6 | grep -vE '127\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}' | grep -oE '[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}' | head -1)
 	read -p "IP address: " -e -i $IP IP
-	# If $IP is a private IP address, the server must be behind NAT
+	# If $IP is a private IP address, the server must be behind NAT
 	if echo "$IP" | grep -qE '^(10\.|172\.1[6789]\.|172\.2[0-9]\.|172\.3[01]\.|192\.168)'; then
 		echo
 		echo "This server is behind NAT. What is the public IPv4 address or hostname?"
@@ -192,17 +192,15 @@ else
 	esac
 	echo
 	echo "What port do you want OpenVPN listening to?"
-	read -p "Port: " -e -i 1194 PORT
+	read -p "Port: " -e -i 443 PORT
 	echo
 	echo "Which DNS do you want to use with the VPN?"
 	echo "   1) Current system resolvers"
-	echo "   2) PrivateDNS"
+	echo "   2) 1.1.1.1"
 	echo "   3) Google"
 	echo "   4) OpenDNS"
-	echo "   5) DNSCrypt"
-	echo "   6) Alternate DNS"
-	echo "   7) Playmo"
-	read -p "DNS [1-7]: " -e -i 1 DNS
+	echo "   5) Alternate DNS"
+	read -p "DNS [1-5]: " -e -i 1 DNS
 	echo
 	echo "Finally, tell me your name for the client certificate."
 	echo "Please, use one word only, no special characters."
@@ -272,7 +270,8 @@ ifconfig-pool-persist ipp.txt" > /etc/openvpn/server.conf
 		done
 		;;
 		2)
-		echo 'push "dhcp-option DNS 138.68.250.168"' >> /etc/openvpn/server.conf
+		echo 'push "dhcp-option DNS 1.1.1.1"' >> /etc/openvpn/server.conf
+		echo 'push "dhcp-option DNS 1.0.0.1"' >> /etc/openvpn/server.conf
 		;;
 		3)
 		echo 'push "dhcp-option DNS 8.8.8.8"' >> /etc/openvpn/server.conf
@@ -283,13 +282,8 @@ ifconfig-pool-persist ipp.txt" > /etc/openvpn/server.conf
 		echo 'push "dhcp-option DNS 208.67.220.220"' >> /etc/openvpn/server.conf
 		;;
 		5)
-		echo 'push "dhcp-option DNS 94.199.213.172"' >> /etc/openvpn/server.conf
-		;;
-		6)
 		echo 'push "dhcp-option DNS 23.253.163.53"' >> /etc/openvpn/server.conf
 		echo 'push "dhcp-option DNS 198.101.242.72"' >> /etc/openvpn/server.conf
-		7)
-		echo 'push "dhcp-option DNS 46.101.152.170"' >> /etc/openvpn/server.conf
 		;;
 	esac
 	echo "keepalive 10 120
