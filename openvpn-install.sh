@@ -199,7 +199,7 @@ else
 	echo "   2) PrivateDNS"
 	echo "   3) Google"
 	echo "   4) OpenDNS"
-	echo "   5) Verisign"
+	echo "   5) DNSCrypt"
 	echo "   6) Alternate DNS"
 	echo "   7) Playmo"
 	read -p "DNS [1-7]: " -e -i 1 DNS
@@ -283,8 +283,7 @@ ifconfig-pool-persist ipp.txt" > /etc/openvpn/server.conf
 		echo 'push "dhcp-option DNS 208.67.220.220"' >> /etc/openvpn/server.conf
 		;;
 		5)
-		echo 'push "dhcp-option DNS 64.6.64.6"' >> /etc/openvpn/server.conf
-		echo 'push "dhcp-option DNS 64.6.65.6"' >> /etc/openvpn/server.conf
+		echo 'push "dhcp-option DNS 94.199.213.172"' >> /etc/openvpn/server.conf
 		;;
 		6)
 		echo 'push "dhcp-option DNS 23.253.163.53"' >> /etc/openvpn/server.conf
